@@ -10,16 +10,18 @@ app.get('/visualizer', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-let storedData = { message: 'Hello from app1!' };
-
 app.get('/', async (req, res) => {
     try {
       const response = await axios.get(`${req.protocol}://${req.host}/data`);
-      res.send(`App2 received: ${response.data.message}`);
+      res.send(`App received: ${response.data.message}`);
     } catch (error) {
-      res.status(500).send('Failed to fetch data from app1');
+      res.status(500).send('Failed to fetch data');
     }
 });
+
+app.get('/health', (req, res) => {
+    res.send("OK");
+})
 
 app.get('/data', (req, res) => {
     res.json(storedData);
@@ -57,5 +59,3 @@ app.post('/receive-data', (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
-
-

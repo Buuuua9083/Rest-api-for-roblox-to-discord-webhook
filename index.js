@@ -14,7 +14,7 @@ let storedData = { message: 'Hello from app1!' };
 
 app.get('/', async (req, res) => {
     try {
-      const response = await axios.get('http://localhost:8080/data');
+      const response = await axios.get(`${req.protocol}://${req.host}/data`);
       res.send(`App2 received: ${response.data.message}`);
     } catch (error) {
       res.status(500).send('Failed to fetch data from app1');
@@ -29,7 +29,7 @@ app.post('/receive-data', (req, res) => {
   console.log('Received from Roblox:', payload.message);
   res.send('Data received!');
 
-  const baseUrl = 'http://localhost:8080/visualizer';
+  const baseUrl = `${req.protocol}://${req.host}/visualizer`;
   const blockData = payload.blocks || payload;
   const query = encodeURIComponent(JSON.stringify(blockData));
   const viewerUrl = `${baseUrl}/?blocks=${query}`;
@@ -55,7 +55,7 @@ app.post('/receive-data', (req, res) => {
     .catch(err => console.error('Discord webhook failed:', err));
 });
 
-
-app.listen(8080, () => console.log('listening on port 8080 http://localhost:8080'));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 

@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
 
 app.get('/health', (req, res) => {
     res.send("OK");
-})
+});
 
 app.get('/data', (req, res) => {
     res.json(storedData);

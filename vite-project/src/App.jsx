@@ -1,7 +1,14 @@
-import header from "./Header.jsx";
+import Card from './Card'
 
 function App() {
 
+    return(
+        <>
+            <Card />
+            <Card />
+            <Card />
+        </>
+    );
 }
 
 export default App
